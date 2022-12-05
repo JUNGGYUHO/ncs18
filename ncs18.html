@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <title>STUDENTS</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap');
+
+        * {
+            margin: 0 auto;
+            padding: 0;
+            font-size: 10px;
+            color: #333;
+            font-family: 'Do Hyeon', sans-serif;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        td {
+            border: 0.15rem solid #000;
+            font-size: 3rem;
+            text-align: center;
+        }
+        .title_area > td {
+            background: #7f669d;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <tr class="title_area">
+            <td></td>
+            <td>국어</td>
+            <td>수학</td>
+            <td>과학</td>
+            <td>합계</td>
+            <td>평균</td>
+        </tr>
+        <tr>
+            <td id="name_0"></td>
+            <td id="t_Amy_0"></td>
+            <td id="t_Amy_1"></td>
+            <td id="t_Amy_2"></td>
+            <td id="t_Amy_sum"></td>
+            <td id="t_Amy_avg"></td>
+        </tr>
+        <tr>
+            <td id="name_1"></td>
+            <td id="t_Sean_0"></td>
+            <td id="t_Sean_1"></td>
+            <td id="t_Sean_2"></td>
+            <td id="t_Sean_sum"></td>
+            <td id="t_Sean_avg"></td>
+        </tr>
+        <tr>
+            <td id="name_2"></td>
+            <td id="t_John_0"></td>
+            <td id="t_John_1"></td>
+            <td id="t_John_2"></td>
+            <td id="t_John_sum"></td>
+            <td id="t_John_avg"></td>
+        </tr>
+    </table>
+    <script>
+        class Students {
+            constructor(name, korean, english, mathematics) {
+                this.name = name;
+                this.korean = korean;
+                this.english = english;
+                this.mathematics = mathematics;
+                this.sum_arr = [];
+                this.sum_counter = 0;
+                this.avg_arr = [];
+                this.avg_counter = 0;
+            }
+            sum_subjects() {
+                this.sum_arr.push(this.korean);
+                this.sum_arr.push(this.english);
+                this.sum_arr.push(this.mathematics);
+                for (let i = 0; i < this.sum_arr.length; i++) {
+                    this.sum_counter += this.sum_arr[i];
+                }
+                for (let i = 0; i < this.sum_arr.length; i++) {
+                    $(`#t_${this.name}_${i}`).text(this.sum_arr[i]);
+                }
+                $(`#t_${this.name}_sum`).text(this.sum_counter);
+                console.log(this.sum_arr);
+                console.log(this.sum_counter);
+            }
+            avg_subjects() {
+                this.avg_arr.push(this.korean);
+                this.avg_arr.push(this.english);
+                this.avg_arr.push(this.mathematics);
+                for (let i = 0; i < this.avg_arr.length; i++) {
+                    this.avg_counter += this.avg_arr[i];
+                }
+                const round_avg = Math.round(this.avg_counter / 3);
+                $(`#t_${this.name}_avg`).text(round_avg);
+                console.log(this.avg_arr);
+                console.log(this.avg_counter / 3);
+            }
+            get getName() {
+                return this.name;
+            }
+        }
+
+        let name_arr = [];
+        const Amy = new Students("Amy", 80, 95, 79);
+        Amy.sum_subjects();
+        Amy.avg_subjects();
+        name_arr.push(Amy.getName);
+
+        const Sean = new Students("Sean", 98, 55, 89);
+        Sean.sum_subjects();
+        Sean.avg_subjects();
+        name_arr.push(Sean.getName);
+
+        const John = new Students("John", 71, 86, 54);
+        John.sum_subjects();
+        John.avg_subjects();
+        name_arr.push(John.getName);
+
+        for (let i = 0; i < name_arr.length; i++) {
+            $(`#name_${i}`).text(name_arr[i]);
+        }
+    </script>
+</body>
+</html>
